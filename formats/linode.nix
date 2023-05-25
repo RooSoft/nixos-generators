@@ -28,12 +28,12 @@
   # Enable LISH and Linode booting w/ GRUB
   boot = {
     # Add kernel modules detected by nixos-generate-config:
-    initrd.availableKernelModules = [
-      "virtio_pci"
-      "virtio_scsi"
-      "ahci"
-      "sd_mod"
-    ];
+    /* initrd.availableKernelModules = [ */
+    /*   "virtio_pci" */
+    /*   "virtio_scsi" */
+    /*   "ahci" */
+    /*   "sd_mod" */
+    /* ]; */
 
     growPartition = true;
 
@@ -49,7 +49,7 @@
         version = 2;
         forceInstall = true;
         device = "nodev";
-        fsIdentifier = "label";
+        /* fsIdentifier = "label"; */
 
         # Allow serial connection for GRUB to be able to use LISH:
         extraConfig = ''
@@ -59,12 +59,12 @@
         '';
 
         # Link /boot/grub2 to /boot/grub:
-        extraInstallCommands = ''
-          ln -fs /boot/grub /boot/grub2
-        '';
+        /* extraInstallCommands = '' */
+        /*   ln -fs /boot/grub /boot/grub2 */
+        /* ''; */
 
         # Remove GRUB splash image:
-        splashImage = null;
+        /* splashImage = null; */
       };
     };
   };
@@ -77,19 +77,24 @@
     inetutils
     mtr
     sysstat
-    linode-cli
+    /* linode-cli */
   ];
 
   networking = {
-    enableIPv6 = true;
-    tempAddresses = "disabled";
-    useDHCP = true;
+    /* enableIPv6 = true; */
+    /* tempAddresses = "disabled"; */
+    useDHCP = false;
     usePredictableInterfaceNames = false;
     interfaces.eth0 = {
-      tempAddress = "disabled";
+      /* tempAddress = "disabled"; */
       useDHCP = true;
     };
   };
 
-  services.qemuGuest.enable = true;
+  /* services.qemuGuest.enable = true; */
+
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "yes";
+  };
 }
